@@ -1,0 +1,14 @@
+# Root-level ignore for secrets and build artifacts
+laravel/.env
+laravel/.env.*
+!laravel/.env.example
+laravel/storage/*.key
+laravel/storage/pail
+laravel/vendor
+laravel/node_modules
+nestjs/.env
+nestjs/.env.*
+!nestjs/.env.example
+nestjs/node_modules
+nestjs/dist
+*.log
