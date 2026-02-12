@@ -23,6 +23,7 @@ async function bootstrap() {
     .setVersion('1.0.0')
     .addBearerAuth()
     .build();
+
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('docs', app, document);
 
@@ -30,9 +31,12 @@ async function bootstrap() {
   const httpAdapter = app.getHttpAdapter().getInstance() as express.Express;
   httpAdapter.get('/', (_req, res) => res.redirect('/docs'));
 
-  const port = process.env.PORT ?? 3000;
-  await app.listen(port);
+  // Docker / Nginx friendly
+  const port = Number(process.env.PORT) || 3001;
+  await app.listen(port, '0.0.0.0');
+
   // eslint-disable-next-line no-console
-  console.log(`Nest server running on http://localhost:${port}`);
+  console.log(`Nest server running on http://0.0.0.0:${port}`);
 }
+
 bootstrap();
